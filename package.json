@@ -17,7 +17,7 @@
     "redux-observable": "^1.2.0",
     "rxjs": "^6.5.3",
     "styled-components": "^4.4.1",
-    "typesafe-actions": "^5.1.0",
+    "typesafe-actions": "4.4.2",
     "typescript": "3.7.2"
   },
   "scripts": {
