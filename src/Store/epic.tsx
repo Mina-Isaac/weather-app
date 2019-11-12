@@ -13,7 +13,6 @@ import { appState } from "./reducer";
 
 
 type Action = ActionType<typeof actions>;
-const propertyFilter = ['dt', 'main', 'weather', 'dt_txt']
 
 export const fetchWeatherSegmentsFlow: Epic<Action, Action, appState, any> = (
   action$,
@@ -27,14 +26,14 @@ export const fetchWeatherSegmentsFlow: Epic<Action, Action, appState, any> = (
       from(service.fetchDataFromAPI()).pipe(
         map((data: any) => {
           const list = data.list;
-          const filtered = list.map((item: any) => {
+          const temp = list.map((item: any) => {
             const holder: any = {}
-            for (let prop in item) {
-              if (propertyFilter.includes(prop)) holder[prop] = item[prop]
+            for (let p in item) {
+              if (p === 'dt' || p === 'main' || p === 'weather' || p === 'dt_txt') holder[p] = item[p]
             }
             return holder
           })
-          return filtered
+          return temp
         }),
         map(actions.setData),
         catchError(error => of(actions.dataError(error)))

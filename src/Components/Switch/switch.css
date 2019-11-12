@@ -1,0 +1,88 @@
+.switcher {
+    position: relative;
+    top: 1em;
+    width: 120px;
+    height: 40px;
+    margin-bottom: 1em;
+    background: rgba(#fff, 0.6);
+    border-radius: 5px;
+    border: 4px solid rgba(#fff, 0.4);
+    padding: 0;
+    box-sizing: content-box;
+}
+
+.switcher:hover {
+    border-color: rgba(#fff, 0.6);
+}
+
+.switcher__input {
+    position: absolute;
+    opacity: 0;
+    z-index: -10;
+}
+
+.switcher__bg {
+    position: absolute;
+    z-index: 0;
+    width: 50%;
+    height: inherit;
+    left: 50%;
+    background: #3498db;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    border-radius: 5px;
+}
+
+.switcher__labels {
+    position: absolute;
+    z-index: 1;
+    width: inherit;
+    height: inherit;
+}
+
+.switcher__labels:before,
+.switcher__labels:after {
+    height: 40px;
+    width: 50%;
+    line-height: 40px;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    text-align: center;
+}
+
+.switcher__labels:before {
+    content: attr(data-on);
+    left: 0;
+    position: absolute;
+    color: darken(#fff, 30%);
+}
+
+.switcher__labels:after {
+    content: attr(data-off);
+    position: absolute;
+    right: 0;
+    color: #fff;
+}
+
+.switcher__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.switcher-active .switcher__bg {
+    left: 0%;
+}
+
+.switcher-active .switcher__labels:before {
+    color: #fff;
+}
+
+.switcher-active .switcher__labels:before {
+    color: darken(#fff, 30%);
+}
