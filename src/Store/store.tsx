@@ -20,14 +20,14 @@ const epicMiddleware = createEpicMiddleware<Action, Action, appState>({
 const middleware: [Middleware] = [epicMiddleware];
 
 const configStore = () => {
-  const createStoreWithMiddleware = compose(applyMiddleware(...middleware))(
+  const createStoreWithMiddleware = compose(applyMiddleware(...middleware),)(
     createStore
   );
   const store = createStoreWithMiddleware(reducer);
   epicMiddleware.run(fetchWeatherSegmentsFlow);
 
   return {
-    store
+    store,
   };
 };
 const { store } = configStore();
