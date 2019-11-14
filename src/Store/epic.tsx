@@ -11,8 +11,8 @@ import {
 import { ActionType, isActionOf } from "typesafe-actions";
 import { appState } from "./reducer";
 
-
 type Action = ActionType<typeof actions>;
+const propertyFilter = ["dt", "main", "weather", "dt_txt"]; //This array will be used to filter returned data
 
 export const fetchWeatherSegmentsFlow: Epic<Action, Action, appState, any> = (
   action$,
@@ -24,17 +24,18 @@ export const fetchWeatherSegmentsFlow: Epic<Action, Action, appState, any> = (
     withLatestFrom(state$),
     switchMap(arr =>
       from(service.fetchDataFromAPI()).pipe(
+        //Selecting only needed set of properties from returned weather segments
         map((data: any) => {
-          const list = data.list;
-          const temp = list.map((item: any) => {
-            const holder: any = {}
-            for (let p in item) {
-              if (p === 'dt' || p === 'main' || p === 'weather' || p === 'dt_txt') holder[p] = item[p]
+          const filtered = data.list.map((item: any) => {
+            const holder: any = {};
+            for (let prop in item) {
+              if (propertyFilter.includes(prop)) holder[prop] = item[prop];
             }
-            return holder
-          })
-          return temp
+            return holder;
+          });
+          return filtered;
         }),
+        //end of filtering
         map(actions.setData),
         catchError(error => of(actions.dataError(error)))
       )

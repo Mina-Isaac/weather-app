@@ -1,18 +1,12 @@
-import {
-  applyMiddleware,
-  compose,
-  createStore,
-  Middleware,
-} from "redux";
+import { applyMiddleware, compose, createStore, Middleware } from "redux";
 import { createEpicMiddleware } from "redux-observable";
 import { fetchWeatherSegmentsFlow } from "./epic";
 import { ActionType } from "typesafe-actions";
 import { appServices } from "./services";
-import * as actions from './actions'
-import reducer, { appState } from './reducer'
+import * as actions from "./actions";
+import reducer, { appState } from "./reducer";
 
 type Action = ActionType<typeof actions>;
-
 
 const epicMiddleware = createEpicMiddleware<Action, Action, appState>({
   dependencies: { service: appServices }

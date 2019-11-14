@@ -1,27 +1,26 @@
 import { createAction } from "typesafe-actions";
-import { actionTypes, weatherSegment } from "../constatnts";
+import { ActionTypes, weatherSegment } from "../constants";
 
+const getData = createAction(ActionTypes.FETCH_DATA);
 
-const getData = createAction(actionTypes.FETCH_DATA);
-
-const setData = createAction(actionTypes.FETCH_DATA_SUCCESS,
-  resolve => (data: Array<weatherSegment>) =>
-    resolve(data)
+const setData = createAction(
+  ActionTypes.FETCH_DATA_SUCCESS,
+  resolve => (data: Array<weatherSegment>) => resolve(data)
 );
 
-const dataError = createAction(actionTypes.FETCH_DATA_ERROR,
-  resolve => (error: Error) =>
-    resolve(error)
+const dataError = createAction(
+  ActionTypes.FETCH_DATA_ERROR,
+  resolve => (error: Error) => resolve(error)
 );
 
-const setTempScale = createAction(actionTypes.SET_TEMP_SCALE,
-  resolve => (scale :string) =>
-  resolve(scale)
+const setTempScale = createAction(
+  ActionTypes.SET_TEMP_SCALE,
+  resolve => (scale: string) => resolve(scale)
 );
 
-export {
-  getData,
-  setData,
-  dataError,
-  setTempScale
-};
+const setSelectedDay = createAction(
+  ActionTypes.SET_SELECTED_DAY,
+  resolve => (index: number) => resolve(index)
+);
+
+export { getData, setData, dataError, setTempScale, setSelectedDay };
