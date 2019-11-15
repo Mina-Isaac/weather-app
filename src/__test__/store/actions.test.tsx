@@ -1,5 +1,5 @@
-import * as actions from '../../Store/actions';
-import { ActionTypes } from '../../constants';
+import * as actions from "../../Store/actions";
+import { ActionTypes } from "../../constants";
 const recievedDataSample = [
   {
     dt: 0,
@@ -11,7 +11,7 @@ const recievedDataSample = [
       sea_level: 0,
       grnd_level: 0,
       humidity: 0,
-      temp_kf: 0,
+      temp_kf: 0
     },
     weather: [
       {
@@ -21,7 +21,7 @@ const recievedDataSample = [
         icon: "10d"
       }
     ],
-    dt_txt: ''
+    dt_txt: ""
   }
 ];
 
@@ -40,23 +40,23 @@ describe("actions", () => {
       type: ActionTypes.FETCH_DATA_SUCCESS
     });
     expect(action.payload).toHaveLength(1);
-    expect(typeof action.payload).toBe('object');
+    expect(typeof action.payload).toBe("object");
   });
   it("should create an action with type:FETCH_DATA_ERROR", () => {
-    const action = actions.dataError(new Error(''));
+    const action = actions.dataError(new Error(""));
     expect(action).toEqual({
-      payload: new Error(''),
+      payload: new Error(""),
       type: ActionTypes.FETCH_DATA_ERROR
     });
-    expect(typeof action.payload).toBe('object');
+    expect(typeof action.payload).toBe("object");
   });
   it("should create an action with type:SET_TEMP_SCALE", () => {
-    const action = actions.setTempScale('some String');
+    const action = actions.setTempScale("some String");
     expect(action).toEqual({
-      payload: 'some String',
+      payload: "some String",
       type: ActionTypes.SET_TEMP_SCALE
     });
-    expect(typeof action.payload).toBe('string');
+    expect(typeof action.payload).toBe("string");
   });
   it("should create an action with type:SET_SELECTED_DAY", () => {
     const action = actions.setSelectedDay(4);
@@ -64,6 +64,6 @@ describe("actions", () => {
       payload: 4,
       type: ActionTypes.SET_SELECTED_DAY
     });
-    expect(typeof action.payload).toBe('number');
+    expect(typeof action.payload).toBe("number");
   });
 });

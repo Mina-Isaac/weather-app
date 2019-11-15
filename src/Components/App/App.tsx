@@ -10,8 +10,7 @@ import Chart from "../Charts/Chart";
 import * as utilities from "../../utilities";
 import Loader from "../Loader/Loader";
 import Carousel from "../Carousel/Carousel";
-import { ICON_URL } from "../../constants";
-import Typography from "@material-ui/core/Typography";
+import ShortCard from "./ShortCard";
 //import data from '../../sampleData'
 
 const Container = styled.div`
@@ -27,9 +26,9 @@ const Container = styled.div`
 `;
 
 const Wraper = styled.div`
-  min-width: 70%;
-  overflow: hidden;
+  min-width: 80%;
   margin-top: 1%;
+  overflow: hidden;
 `;
 
 const SeconderyContainer = styled.div`
@@ -74,18 +73,16 @@ const App: React.FC = () => {
   //in the data received from the API
   const currentWeather = closestSegmentToNow ? (
     <SeconderyContainer>
-      <Typography variant="h6">
-        Weather now: {closestSegmentToNow.weather[0].description}
-      </Typography>
-      <img src={`${ICON_URL + closestSegmentToNow.weather[0].icon}.png` } alt='weather icon' />
+      <ShortCard
+        description={closestSegmentToNow.weather[0].description}
+        icon={closestSegmentToNow.weather[0].icon}
+      />
     </SeconderyContainer>
   ) : null;
 
   return (
     <Container className="App">
-      {loading && (
-        <Loader />
-      ) || (
+      {(loading && <Loader />) || (
         <>
           {(data.length > 0 && (
             <>
@@ -93,11 +90,12 @@ const App: React.FC = () => {
               <br />
               {currentWeather}
               <Carousel cardData={groupedData} />
-              {selectedDay !== undefined && (
+              {(selectedDay !== undefined && (
                 <Wraper>
                   <Chart day={groupedData[selectedDay]} />
                 </Wraper>
-              ) || null}
+              )) ||
+                null}
             </>
           )) || (
             <div>

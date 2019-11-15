@@ -13,7 +13,7 @@ export type DayData = {
 
 const Stretched = styled.div`
   align-self: stretch;
-  padding: 0 15%;
+  padding: 0 2%;
 `;
 
 const Chart = (props: DayData) => {
