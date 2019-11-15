@@ -8,7 +8,7 @@ function findClosestSegmentToNow(
 ): weatherSegment | undefined {
   return dayData.find((item: weatherSegment): boolean => {
     const nowInSeconds = Date.now() / 1000;
-    return Math.abs(item.dt - 60 * 60 - nowInSeconds) <= (3 * 60 * 60) / 2;
+    return Math.abs(item.dt +(offset/1000) - nowInSeconds) <= (3 * 60 * 60) / 2;
   });
 }
 

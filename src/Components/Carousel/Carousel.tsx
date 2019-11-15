@@ -8,7 +8,7 @@ import { setSelectedDay } from "../../Store/actions";
 import Slider from "react-slick";
 
 const Container = styled.div`
-  max-width: 80%;
+  max-width: 70%;
 `;
 export type CarouselProps = {
   cardData: weatherSegment[][];

@@ -27,7 +27,7 @@ const Container = styled.div`
 `;
 
 const Wraper = styled.div`
-  min-width: 80%;
+  min-width: 70%;
   overflow: hidden;
   margin-top: 1%;
 `;
@@ -75,21 +75,17 @@ const App: React.FC = () => {
   const currentWeather = closestSegmentToNow ? (
     <SeconderyContainer>
       <Typography variant="h6">
-        Weather now:{" "}
-        {new Date(
-          1000 * closestSegmentToNow.dt - 60 * 60 * 1000
-        ).toLocaleTimeString()}
+        Weather now: {closestSegmentToNow.weather[0].description}
       </Typography>
-      {closestSegmentToNow.weather[0].description}
-      <img src={`${ICON_URL + closestSegmentToNow.weather[0].icon}.png`} />
+      <img src={`${ICON_URL + closestSegmentToNow.weather[0].icon}.png` } alt='weather icon' />
     </SeconderyContainer>
   ) : null;
 
   return (
     <Container className="App">
-      {loading ? (
+      {loading && (
         <Loader />
-      ) : (
+      ) || (
         <>
           {(data.length > 0 && (
             <>
@@ -97,16 +93,15 @@ const App: React.FC = () => {
               <br />
               {currentWeather}
               <Carousel cardData={groupedData} />
-              {selectedDay !== undefined ? (
+              {selectedDay !== undefined && (
                 <Wraper>
                   <Chart day={groupedData[selectedDay]} />
                 </Wraper>
-              ) : null}
+              ) || null}
             </>
           )) || (
             <div>
-              {" "}
-              <h1>Error</h1> <h4>Could not retrieve data from server</h4>{" "}
+              <h1>Error</h1> <h4>Could not retrieve data from server</h4>
             </div>
           )}
         </>
