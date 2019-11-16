@@ -6,6 +6,7 @@ import { convertTemp } from "../../utilities";
 import { useSelector } from "react-redux";
 import { appState } from "../../Store/reducer";
 import { offset } from "../App/App";
+import "chartjs-plugin-datalabels";
 
 export type DayData = {
   day: weatherSegment[];
@@ -27,7 +28,7 @@ const Chart = (props: DayData) => {
     return state.tempScale;
   });
 
-  const label = `Temperature across the day in °${tempScale}`;
+  const label = `Temperature in °${tempScale}`;
   const chartData = props.day.map(item =>
     convertTemp(item.main.temp, tempScale)
   );
@@ -50,11 +51,19 @@ const Chart = (props: DayData) => {
     <Stretched>
       <Bar
         data={data}
-        width={100}
-        height={50}
+        width={120}
+        height={70}
         options={{
           legend: {
             display: false
+          },
+          plugins: {
+            datalabels: {
+              display: true,
+              color: "white",
+              anchor: "end",
+              align: "start"
+            }
           },
           tooltips: {
             enabled: false

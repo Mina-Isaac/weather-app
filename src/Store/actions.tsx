@@ -20,7 +20,7 @@ const setTempScale = createAction(
 
 const setSelectedDay = createAction(
   ActionTypes.SET_SELECTED_DAY,
-  resolve => (index: number) => resolve(index)
+  resolve => (index: number | undefined) => resolve(index)
 );
 
 export { getData, setData, dataError, setTempScale, setSelectedDay };

@@ -26,16 +26,11 @@ const Container = styled.div`
 `;
 
 const Wraper = styled.div`
-  min-width: 80%;
+  min-width: 85%;
   margin-top: 1%;
   overflow: hidden;
-`;
-
-const SeconderyContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  border: 1px dashed gray;
+  padding: 3px;
 `;
 
 export const offset = 1000 * 60 * new Date(Date.now()).getTimezoneOffset();
@@ -63,7 +58,7 @@ const App: React.FC = () => {
 
   //Grouping weather segments by date in order to facilitate further data processing
   const groupedData: weatherSegment[][] = utilities.groupSegmentsByDate(data);
-  console.log(groupedData);
+  console.log(data);
 
   //Finding the wether segment that represents the present moment more closely (within 1.5 hours)
   if (groupedData.length)
@@ -72,12 +67,10 @@ const App: React.FC = () => {
   //Rendering an element to diplay the current weather if it is included
   //in the data received from the API
   const currentWeather = closestSegmentToNow ? (
-    <SeconderyContainer>
-      <ShortCard
-        description={closestSegmentToNow.weather[0].description}
-        icon={closestSegmentToNow.weather[0].icon}
-      />
-    </SeconderyContainer>
+    <ShortCard
+      description={closestSegmentToNow.weather[0].description}
+      icon={closestSegmentToNow.weather[0].icon}
+    />
   ) : null;
 
   return (

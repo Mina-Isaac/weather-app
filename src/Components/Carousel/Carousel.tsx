@@ -53,7 +53,11 @@ const Carousel = (props: CarouselProps) => {
           slidesToScroll: 1
         }
       }
-    ]
+    ],
+    beforeChange: () =>
+      setTimeout(() => {
+        dispatch(setSelectedDay(undefined));
+      }, 540)
   };
   return (
     <Container>
