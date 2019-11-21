@@ -3,7 +3,7 @@ import * as actions from "./actions";
 import { weatherSegment, Scales } from "../constants";
 
 export type appState = {
-  segments: weatherSegment[];
+  groupedSegments: weatherSegment[][];
   fetching: boolean;
   tempScale: string;
   selectedDay: number | undefined;
@@ -12,7 +12,7 @@ export type appState = {
 export type Action = ActionType<typeof actions>;
 
 export const initialState: appState = {
-  segments: [],
+  groupedSegments: [],
   fetching: true,
   tempScale: Scales.Fahrenheit,
   selectedDay: undefined
@@ -23,7 +23,7 @@ const reducer = (state: appState = initialState, action: any): appState => {
     case getType(actions.setData):
       return {
         fetching: false,
-        segments: action.payload,
+        groupedSegments: action.payload,
         tempScale: state.tempScale,
         selectedDay: state.selectedDay
       };
@@ -31,7 +31,7 @@ const reducer = (state: appState = initialState, action: any): appState => {
     case getType(actions.dataError):
       return {
         fetching: false,
-        segments: [],
+        groupedSegments: [],
         tempScale: state.tempScale,
         selectedDay: state.selectedDay
       };

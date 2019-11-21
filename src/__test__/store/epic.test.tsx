@@ -92,7 +92,7 @@ describe("Weather Segments Epic", () => {
   it("should dispatch setData action when weather segment data is received", done => {
     service.fetchDataFromAPI.mockReturnValue(Promise.resolve(mockResponse));
     const action$ = ActionsObservable.of(actions.getData());
-    const expectedOutputActions = actions.setData([mockWeatherSegment]);
+    const expectedOutputActions = actions.setData([[mockWeatherSegment]]);
     fetchWeatherSegmentsFlow(action$, state$, { service }).subscribe(
       actionReceived => {
         expect(actionReceived.type).toBe(expectedOutputActions.type);

@@ -8,7 +8,9 @@ function findClosestSegmentToNow(
 ): weatherSegment | undefined {
   return dayData.find((item: weatherSegment): boolean => {
     const nowInSeconds = Date.now() / 1000;
-    return Math.abs(item.dt +(offset/1000) - nowInSeconds) <= (3 * 60 * 60) / 2;
+    return (
+      Math.abs(item.dt + offset / 1000 - nowInSeconds) <= (3 * 60 * 60) / 2
+    );
   });
 }
 
@@ -22,18 +24,20 @@ function calculateAvTemp(dayData: weatherSegment[]) {
 //This function is used to group weather segments by date in order to facilitate further
 //processing of data. This function assumes that weather segments are already sorted by time.
 function groupSegmentsByDate(data: weatherSegment[]): weatherSegment[][] {
-  const groupedData: any = [];
+  const groupedData: weatherSegment[][] = [];
   let len: number = 0;
   let lastInd: number = -1;
+  let remainder = data;
   data.forEach((item, i) => {
-    if (i <= lastInd + len) return;
-    var subArr = data.filter(
+    if (i < lastInd + len) return;
+    const subArr = remainder.filter(
       elem =>
         new Date(elem.dt * 1000).getDay() === new Date(item.dt * 1000).getDay()
     );
-    groupedData.push(subArr);
     len = subArr.length;
     lastInd = i;
+    groupedData.push(subArr);
+    remainder = remainder.slice(len);
   });
   return groupedData;
 }

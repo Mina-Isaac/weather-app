@@ -1,28 +1,30 @@
 import * as actions from "../../Store/actions";
 import { ActionTypes } from "../../constants";
 const recievedDataSample = [
-  {
-    dt: 0,
-    main: {
-      temp: 0,
-      temp_min: 0,
-      temp_max: 0,
-      pressure: 0,
-      sea_level: 0,
-      grnd_level: 0,
-      humidity: 0,
-      temp_kf: 0
-    },
-    weather: [
-      {
-        id: 0,
-        main: "",
-        description: "",
-        icon: "10d"
-      }
-    ],
-    dt_txt: ""
-  }
+  [
+    {
+      dt: 0,
+      main: {
+        temp: 0,
+        temp_min: 0,
+        temp_max: 0,
+        pressure: 0,
+        sea_level: 0,
+        grnd_level: 0,
+        humidity: 0,
+        temp_kf: 0
+      },
+      weather: [
+        {
+          id: 0,
+          main: "",
+          description: "",
+          icon: "10d"
+        }
+      ],
+      dt_txt: ""
+    }
+  ]
 ];
 
 describe("actions", () => {

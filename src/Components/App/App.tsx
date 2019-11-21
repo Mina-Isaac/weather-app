@@ -7,11 +7,10 @@ import { appState } from "../../Store/reducer";
 import { weatherSegment } from "../../constants";
 import Switch from "../Switch/Switch";
 import Chart from "../Charts/Chart";
-import * as utilities from "../../utilities";
+import { findClosestSegmentToNow } from "../../utilities";
 import Loader from "../Loader/Loader";
 import Carousel from "../Carousel/Carousel";
 import ShortCard from "./ShortCard";
-//import data from '../../sampleData'
 
 const Container = styled.div`
   min-height: 100vh;
@@ -42,8 +41,8 @@ const App: React.FC = () => {
     dispatch(getData());
   }, []);
 
-  const data: weatherSegment[] = useSelector((state: appState) => {
-    return state.segments;
+  const groupedData: weatherSegment[][] = useSelector((state: appState) => {
+    return state.groupedSegments;
   });
 
   const loading = useSelector((state: appState) => {
@@ -54,18 +53,12 @@ const App: React.FC = () => {
     return state.selectedDay;
   });
 
-  let closestSegmentToNow: weatherSegment | undefined;
-
-  //Grouping weather segments by date in order to facilitate further data processing
-  const groupedData: weatherSegment[][] = utilities.groupSegmentsByDate(data);
-  console.log(data);
-
   //Finding the wether segment that represents the present moment more closely (within 1.5 hours)
+  let closestSegmentToNow: weatherSegment | undefined;
   if (groupedData.length)
-    closestSegmentToNow = utilities.findClosestSegmentToNow(groupedData[0]);
+    closestSegmentToNow = findClosestSegmentToNow(groupedData[0]);
 
-  //Rendering an element to diplay the current weather if it is included
-  //in the data received from the API
+  //Building an element to diplay the current weather as represented by closestSegmentToNow
   const currentWeather = closestSegmentToNow ? (
     <ShortCard
       description={closestSegmentToNow.weather[0].description}
@@ -77,7 +70,7 @@ const App: React.FC = () => {
     <Container className="App">
       {(loading && <Loader />) || (
         <>
-          {(data.length > 0 && (
+          {(groupedData.length > 0 && (
             <>
               <Switch />
               <br />

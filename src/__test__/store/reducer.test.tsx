@@ -35,19 +35,22 @@ describe("Reducer data flow", () => {
 
   it("should put retrieved data in the store and set fetching flag to false with action setData", () => {
     const initialState = getInitialState();
-    const state = reducer(initialState, actions.setData([mockWeatherSegment]));
-    expect(state.segments).toHaveLength(1);
+    const state = reducer(
+      initialState,
+      actions.setData([[mockWeatherSegment]])
+    );
+    expect(state.groupedSegments).toHaveLength(1);
     expect(state.fetching).toBeFalsy();
   });
   it("should set segment property to be [] and set fetching flag to false with action dataError", () => {
     const initialState = getInitialState();
     initialState.fetching = true;
-    initialState.segments = [mockWeatherSegment];
+    initialState.groupedSegments = [[mockWeatherSegment]];
     const state = reducer(
       initialState,
       actions.dataError(new Error("some error occurred"))
     );
-    expect(state.segments).toHaveLength(0);
+    expect(state.groupedSegments).toHaveLength(0);
     expect(state.fetching).toBeFalsy();
   });
   it("should have Fahrenheit as default scale and set temperature scale with action setTempScale", () => {

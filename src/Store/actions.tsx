@@ -5,7 +5,7 @@ const getData = createAction(ActionTypes.FETCH_DATA);
 
 const setData = createAction(
   ActionTypes.FETCH_DATA_SUCCESS,
-  resolve => (data: Array<weatherSegment>) => resolve(data)
+  resolve => (data: weatherSegment[][]) => resolve(data)
 );
 
 const dataError = createAction(
