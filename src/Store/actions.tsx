@@ -1,5 +1,5 @@
 import { createAction } from "typesafe-actions";
-import { ActionTypes, weatherSegment } from "../constants";
+import { ActionTypes, Scales, weatherSegment } from "../constants";
 
 const getData = createAction(ActionTypes.FETCH_DATA);
 
@@ -15,7 +15,7 @@ const dataError = createAction(
 
 const setTempScale = createAction(
   ActionTypes.SET_TEMP_SCALE,
-  resolve => (scale: string) => resolve(scale)
+  resolve => (scale: Scales) => resolve(scale)
 );
 
 const setSelectedDay = createAction(

@@ -31,20 +31,20 @@ const SwitcherLbl = styled.label`
   left: 0;
   z-index: 2;
   width: 100%;
-  height: 100%;
+  height: 40px;
   opacity: 0;
   cursor: pointer;
 `;
 
 interface SwitcherBGI {
-  tempSys: String;
+  tempSys: Scales;
 }
 const SwitcherBG = styled.span<SwitcherBGI>`
   position: absolute;
   z-index: 0;
   width: 50%;
   height: inherit;
-  left: ${props => (props.tempSys === Scales.Fahrenheit ? "50%" : "0")};
+  left: ${(props) => (props.tempSys === Scales.Fahrenheit ? "50%" : "0")};
   background: #3498db;
   transition: all 0.3s;
   border-radius: 5px;
@@ -78,7 +78,7 @@ const SwitcherLbls = styled.span`
 `;
 
 const Switch: React.FC = () => {
-  const tempSys: string = useSelector((state: appState) => state.tempScale);
+  const tempSys = useSelector((state: appState) => state.tempScale);
   const dispatch = useDispatch();
   const handleInputChange = () =>
     dispatch(

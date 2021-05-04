@@ -5,7 +5,7 @@ import { weatherSegment, Scales } from "../constants";
 export type appState = {
   groupedSegments: weatherSegment[][];
   fetching: boolean;
-  tempScale: string;
+  tempScale: Scales;
   selectedDay: number | undefined;
 };
 

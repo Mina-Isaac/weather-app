@@ -39,7 +39,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(getData());
-  }, []);
+  }, [dispatch]);
 
   const groupedData: weatherSegment[][] = useSelector((state: appState) => {
     return state.groupedSegments;
